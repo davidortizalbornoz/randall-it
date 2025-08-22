@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "4a4d2bb7-5a0b-4d88-8a66-4dbd26368c67",
+		"name": "randall-it",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9768535"
+	},
+	"item": [
+		{
+			"name": "grafo/estado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/grafo/estado",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"grafo",
+						"estado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "grafo/tiempo/R11/R13 light",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/grafo/tiempo/R11/CP2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"grafo",
+						"tiempo",
+						"R11",
+						"CP2"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET \"http://localhost:8080/grafo/conexiones/R11\""
+			},
+			"response": []
+		},
+		{
+			"name": "grafo/tiempo/E121/C200 full",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/grafo/tiempo/R01/CP113",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"grafo",
+						"tiempo",
+						"R01",
+						"CP113"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET \"http://localhost:8080/grafo/tiempo/E121/C200\""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bulk-upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/path/to/large_data_file.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/bulk-upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bulk-upload"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:8080/bulk-upload \\\n  -H \"Content-Type: multipart/form-data\" \\\n  -F \"file=@/path/to/large_data_file.csv\""
+			},
+			"response": []
+		}
+	]
+}
