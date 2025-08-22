@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  randall-it:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: randall-it-api
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      # Volumen para logs
+      - randall-logs:/app/logs
+      # Volumen para archivos CSV (opcional)
+      - ./data:/app/data:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/grafo/estado"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - randall-network
+
+volumes:
+  randall-logs:
+    driver: local
+
+networks:
+  randall-network:
+    driver: bridge

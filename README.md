@@ -26,21 +26,33 @@
 ### Estructura del Proyecto
 ```
 randall_it/
-├── src/main/java/cl/randall/
-│   ├── RandallApp.java              # Clase principal de Spring Boot
-│   ├── config/
-│   │   └── OpenApiConfig.java       # Configuración de Swagger/OpenAPI
-│   ├── controllers/
-│   │   └── RandallController.java   # Controladores REST
-│   ├── models/
-│   │   ├── ConexionGrafo.java       # Modelo de conexión
-│   │   └── ResultadoRuta.java       # Modelo de resultado de ruta
-│   └── services/
-│       └── GrafoService.java        # Lógica de negocio y algoritmo de Dijkstra
-├── src/main/resources/
-│   ├── application.properties       # Configuración de la aplicación
-│   └── grafos_light.csv            # Archivo CSV de ejemplo
-└── src/test/                       # Tests unitarios
+├── 📖 README.md                     # Documentación principal
+├── 🧪 TEST_DOCUMENTATION.md        # Documentación de tests
+├── 🔗 API_EXAMPLES.md              # Ejemplos de uso
+├── 🔧 build.gradle                 # Configuración de build
+├── ⚙️ settings.gradle              # Configuración del proyecto
+├── 🐳 Dockerfile                   # Configuración de contenedor
+├── 🐳 docker-compose.yml           # Orquestación de servicios
+├── 🐳 .dockerignore                # Archivos excluidos de Docker
+├── 🐳 docker-build.sh              # Script de automatización
+├── 🚫 .gitignore                   # Archivos ignorados por Git
+└── src/
+    ├── main/java/cl/randall/
+    │   ├── RandallApp.java              # Clase principal de Spring Boot
+    │   ├── config/
+    │   │   └── OpenApiConfig.java       # Configuración de Swagger/OpenAPI
+    │   ├── controllers/
+    │   │   └── RandallController.java   # Controladores REST
+    │   ├── models/
+    │   │   ├── ConexionGrafo.java       # Modelo de conexión
+    │   │   └── ResultadoRuta.java       # Modelo de resultado de ruta
+    │   └── services/
+    │       └── GrafoService.java        # Lógica de negocio y algoritmo de Dijkstra
+    ├── main/resources/
+    │   ├── application.properties       # Configuración de la aplicación
+    │   ├── application-docker.properties # Configuración para Docker
+    │   └── grafos_light.csv            # Archivo CSV de ejemplo
+    └── test/                           # Tests unitarios
 ```
 
 ## 🚀 Instalación y Ejecución
@@ -48,8 +60,9 @@ randall_it/
 ### Prerrequisitos
 - Java 21 o superior
 - Gradle 8.6 o superior
+- Docker (opcional, para containerización)
 
-### Pasos de Instalación
+### Opción 1: Ejecución Local
 
 1. **Clonar el repositorio**
    ```bash
@@ -70,6 +83,50 @@ randall_it/
 4. **Acceder a la documentación**
    - **Swagger UI**: http://localhost:8080/swagger-ui/index.html
    - **OpenAPI JSON**: http://localhost:8080/v3/api-docs
+
+### Opción 2: Ejecución con Docker
+
+#### **Usando Docker Compose (Recomendado)**
+```bash
+# Construir y ejecutar
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f
+
+# Detener servicios
+docker-compose down
+```
+
+#### **Usando Script de Docker**
+```bash
+# Hacer ejecutable el script
+chmod +x docker-build.sh
+
+# Construir imagen
+./docker-build.sh build
+
+# Ejecutar contenedor
+./docker-build.sh run
+
+# Ver logs
+./docker-build.sh logs
+
+# Detener contenedor
+./docker-build.sh stop
+```
+
+#### **Usando Docker directamente**
+```bash
+# Construir imagen
+docker build -t randall-it:latest .
+
+# Ejecutar contenedor
+docker run -d -p 8080:8080 --name randall-it-api randall-it:latest
+
+# Ver logs
+docker logs -f randall-it-api
+```
 
 ## 📊 Estructura de Datos
 
@@ -180,6 +237,37 @@ logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%n
 # Configuración del servidor
 server.port=8080
 ```
+
+## 🐳 Docker
+
+### **Configuración de Contenedores**
+
+#### **Dockerfile**
+- **Build stage**: `gradle:8.5-jdk21` para compilación
+- **Runtime stage**: `openjdk:21-jdk-slim-bullseye` para ejecución
+- **Multi-stage build** para optimizar tamaño de imagen
+- **Usuario no-root** para seguridad
+- **Health check** integrado
+
+#### **Docker Compose**
+- **Servicio**: `randall-it`
+- **Puerto**: 8080
+- **Volúmenes**: Logs y datos CSV
+- **Health check**: Verificación automática de estado
+- **Restart policy**: `unless-stopped`
+
+#### **Variables de Entorno**
+```bash
+JAVA_OPTS=-Xmx512m -Xms256m
+SPRING_PROFILES_ACTIVE=docker
+```
+
+#### **Archivos de Configuración**
+- **`Dockerfile`**: Configuración del contenedor
+- **`docker-compose.yml`**: Orquestación de servicios
+- **`.dockerignore`**: Archivos excluidos del build
+- **`docker-build.sh`**: Script de automatización
+- **`application-docker.properties`**: Configuración específica para Docker
 
 ## 🧪 Testing
 
