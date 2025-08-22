@@ -87,9 +87,17 @@ CP1;R11;84
 - `loc_end`: Ubicación de destino (String)
 - `time`: Tiempo de viaje en minutos (Integer)
 
-### Archivos de Datos
-- **`grafos_light.csv`**: Archivo principal con 11 conexiones
-- **`grafos_full.csv`**: Archivo de test con 10,000+ conexiones
+### Carga de Datos
+
+#### **Carga Inicial (Arranque)**
+Al iniciar la aplicación, se precargan automáticamente los datos mínimos del archivo `grafos_light.csv` que contiene **11 conexiones** entre **6 ubicaciones únicas**. Estos datos están disponibles inmediatamente para consultas y cálculos de rutas.
+
+#### **Carga Dinámica (Reemplazo)**
+La aplicación incluye el endpoint **`POST /bulk-upload`** que permite cargar dinámicamente una nueva estructura de grafos desde un archivo CSV, reemplazando completamente los datos precargados. Este endpoint acepta archivos en formato `multipart/form-data` y valida que el archivo sea un CSV válido con el formato requerido.
+
+#### **Archivos de Datos Disponibles**
+- **`grafos_light.csv`**: Archivo principal con 11 conexiones (carga inicial)
+- **`grafos_full.csv`**: Archivo de test con **10,000+ conexiones** y **200+ nodos únicos**
 
 ## 🔗 Endpoints de la API
 
@@ -176,6 +184,12 @@ server.port=8080
 ## 🧪 Testing
 
 Para información detallada sobre los tests, consulta la [Documentación de Tests](TEST_DOCUMENTATION.md).
+
+### **Carga de Datos en Tests**
+Los tests utilizan diferentes estrategias de carga de datos:
+- **Tests unitarios**: Utilizan `grafos_full.csv` con **200+ nodos** y **10,000+ conexiones** para validar performance
+- **Tests de controladores**: Utilizan mocks para aislar la lógica de testing
+- **Validación de performance**: Garantizan tiempos de respuesta < 300ms
 
 ### Ejecutar Tests
 ```bash

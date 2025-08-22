@@ -15,6 +15,12 @@ gradle bootRun
 curl http://localhost:8080/grafo/estado
 ```
 
+### **Carga Inicial de Datos**
+Al arrancar la aplicación, se precargan automáticamente los datos del archivo `grafos_light.csv` que contiene **11 conexiones** entre **6 ubicaciones únicas**. Estos datos están disponibles inmediatamente para consultas.
+
+### **Reemplazo de Datos**
+Para cargar una nueva estructura de grafos, utiliza el endpoint **`POST /bulk-upload`** que reemplaza completamente los datos precargados con la nueva información del archivo CSV subido.
+
 ### URLs de Acceso
 - **API Base**: http://localhost:8080
 - **Swagger UI**: http://localhost:8080/swagger-ui/index.html
@@ -206,6 +212,20 @@ R03;CP100;25
 CP100;E121
 E121;P151;10
 ```
+
+### **Datasets Disponibles**
+
+#### **grafos_light.csv** (Carga Inicial)
+- **Ubicación**: `src/main/resources/grafos_light.csv`
+- **Conexiones**: 11
+- **Nodos únicos**: 6
+- **Propósito**: Datos mínimos para demostración y desarrollo
+
+#### **grafos_full.csv** (Tests de Performance)
+- **Ubicación**: `src/test/resources/grafos_full.csv`
+- **Conexiones**: 10,000+
+- **Nodos únicos**: 200+
+- **Propósito**: Validación de performance con datasets grandes
 
 ## 🔧 Scripts de Automatización
 

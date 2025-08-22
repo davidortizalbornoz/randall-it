@@ -150,11 +150,19 @@ void deberiaEstarDisponibleBulkUpload() {
 
 ## 📊 Datasets de Testing
 
+### **Carga de Datos en Tests**
+Los tests utilizan diferentes datasets según su propósito:
+
+- **Tests unitarios del servicio**: Utilizan `grafos_full.csv` con **200+ nodos** y **10,000+ conexiones** para validar performance
+- **Tests de controladores**: Utilizan mocks para aislar la lógica de testing
+- **Tests de integración**: Pueden usar datasets específicos según el caso de prueba
+
 ### 1. **grafos_full.csv** (10,000+ conexiones)
 - **Ubicación**: `src/test/resources/grafos_full.csv`
 - **Propósito**: Tests de performance y carga
-- **Estructura**: 200 nodos únicos, altamente interconectados
+- **Estructura**: **200+ nodos únicos**, **10,000+ conexiones**, altamente interconectados
 - **Tipos de nodos**: R, CP, E, P, C
+- **Carga en tests**: Se precarga automáticamente en los tests unitarios para validar performance con datasets grandes
 
 ### 2. **ejemplo_bulk_upload.csv** (10 conexiones)
 - **Ubicación**: `src/test/resources/ejemplo_bulk_upload.csv`
